@@ -25,7 +25,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private List<CityListData> cityListData;
     private Context context;
 
-    public HomeAdapter(Context context, List<CityListData> cityListData, OnItemClickListener clickListener) {
+    HomeAdapter(Context context, List<CityListData> cityListData, OnItemClickListener clickListener) {
         this.clickListener = clickListener;
         this.cityListData = cityListData;
         this.context = context;
@@ -33,7 +33,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, null, false);
         view.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
         return new ViewHolder(view);
     }
@@ -71,7 +71,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         TextView tvCity, tvDesc;
         ImageView background;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
             tvCity = itemView.findViewById(R.id.city);

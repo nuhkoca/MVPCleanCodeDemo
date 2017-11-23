@@ -22,7 +22,7 @@ public class HomePresenter {
         this.subscriptions = new CompositeSubscription();
     }
 
-    public void getCityList(){
+    void getCityList(){
         view.showWait();
 
         Subscription subscription = service.getCityList(new Service.GetCityListCallback() {

@@ -17,7 +17,7 @@ public class CityListResponse {
 
     @SerializedName("data")
     @Expose
-    private List<CityListData> data = new ArrayList<>();
+    private List<CityListData> data = new ArrayList<CityListData>();
     @SerializedName("message")
     @Expose
     private String message;

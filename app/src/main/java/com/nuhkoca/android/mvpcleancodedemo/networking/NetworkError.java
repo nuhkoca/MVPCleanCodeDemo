@@ -23,7 +23,7 @@ public class NetworkError extends Throwable {
     private static final String ERROR_MESSAGE_HEADER = "Error-Message";
     private Throwable error;
 
-    public NetworkError(Throwable e) {
+    NetworkError(Throwable e) {
         super(e);
         this.error = e;
     }
@@ -60,7 +60,7 @@ public class NetworkError extends Throwable {
         return DEFAULT_ERROR_MESSAGE;
     }
 
-    protected String getJsonStringFromResponse(retrofit2.Response<?> response) {
+    private String getJsonStringFromResponse(retrofit2.Response<?> response) {
         try {
             String jsonString = response.errorBody().string();
             com.nuhkoca.android.mvpcleancodedemo.networking.Response errorRespose = new Gson().fromJson(jsonString,

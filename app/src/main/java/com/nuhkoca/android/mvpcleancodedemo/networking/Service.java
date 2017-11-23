@@ -16,7 +16,7 @@ import rx.schedulers.Schedulers;
 public class Service{
     private final NetworkService networkService;
 
-    public Service(NetworkService networkService)
+    Service(NetworkService networkService)
     {
         this.networkService = networkService;
     }
