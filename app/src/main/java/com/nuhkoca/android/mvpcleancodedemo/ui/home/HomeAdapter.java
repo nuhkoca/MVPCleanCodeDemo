@@ -1,4 +1,4 @@
-package com.nuhkoca.android.mvpcleancodedemo.home;
+package com.nuhkoca.android.mvpcleancodedemo.ui.home;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

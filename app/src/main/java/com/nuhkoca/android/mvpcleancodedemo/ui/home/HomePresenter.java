@@ -1,8 +1,12 @@
-package com.nuhkoca.android.mvpcleancodedemo.home;
+package com.nuhkoca.android.mvpcleancodedemo.ui.home;
 
+import com.nuhkoca.android.mvpcleancodedemo.di.PerActivity;
 import com.nuhkoca.android.mvpcleancodedemo.models.CityListResponse;
 import com.nuhkoca.android.mvpcleancodedemo.networking.NetworkError;
 import com.nuhkoca.android.mvpcleancodedemo.networking.Service;
+import com.nuhkoca.android.mvpcleancodedemo.ui.BasePresenter;
+
+import javax.inject.Inject;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -11,31 +15,27 @@ import rx.subscriptions.CompositeSubscription;
  * Created by nuhkoca on 23.11.2017.
  */
 
-public class HomePresenter {
+//TODO: @PerActivity
+public class HomePresenter extends BasePresenter<HomeView, HomeViewViewState> {
     private final Service service;
-    private final HomeView view;
     private CompositeSubscription subscriptions;
 
-    HomePresenter(Service service, HomeView view) {
+    @Inject
+    HomePresenter(Service service) {
         this.service = service;
-        this.view = view;
         this.subscriptions = new CompositeSubscription();
     }
 
-    void getCityList(){
-        view.showWait();
-
+    private void getCityList(){
         Subscription subscription = service.getCityList(new Service.GetCityListCallback() {
             @Override
             public void onSuccess(CityListResponse cityListResponse) {
-                view.removeWait();
-                view.getCityListSuccess(cityListResponse);
+                handleViewState(new HomeViewViewState(cityListResponse));
             }
 
             @Override
             public void onError(NetworkError networkError) {
-                view.removeWait();
-                view.onFailure(networkError.getAppErrorMessage());
+                handleViewState(new HomeViewViewState(networkError.getAppErrorMessage()));
             }
         });
 
@@ -44,5 +44,14 @@ public class HomePresenter {
 
     public void onStop(){
         subscriptions.unsubscribe();
+    }
+
+    @Override
+    public void start() {
+        HomeViewViewState viewState = new HomeViewViewState(true);
+
+        handleViewState(viewState);
+
+        //TODO: NetworkService.getCityList returns null???? getCityList();
     }
 }

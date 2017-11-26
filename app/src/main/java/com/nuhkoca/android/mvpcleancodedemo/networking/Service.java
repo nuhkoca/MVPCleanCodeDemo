@@ -2,6 +2,9 @@ package com.nuhkoca.android.mvpcleancodedemo.networking;
 
 import com.nuhkoca.android.mvpcleancodedemo.models.CityListResponse;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -13,10 +16,12 @@ import rx.schedulers.Schedulers;
  * Created by nuhkoca on 23.11.2017.
  */
 
+//TODO: @Singleton
 public class Service{
     private final NetworkService networkService;
 
-    Service(NetworkService networkService)
+    @Inject
+    public Service(NetworkService networkService)
     {
         this.networkService = networkService;
     }
