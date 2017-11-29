@@ -16,7 +16,7 @@ import rx.schedulers.Schedulers;
  * Created by nuhkoca on 23.11.2017.
  */
 
-//TODO: @Singleton
+@Singleton
 public class Service{
     private final NetworkService networkService;
 

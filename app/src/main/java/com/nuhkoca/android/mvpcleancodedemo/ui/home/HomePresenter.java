@@ -1,6 +1,6 @@
 package com.nuhkoca.android.mvpcleancodedemo.ui.home;
 
-import com.nuhkoca.android.mvpcleancodedemo.di.PerActivity;
+import com.nuhkoca.android.mvpcleancodedemo.di.ActivityScope;
 import com.nuhkoca.android.mvpcleancodedemo.models.CityListResponse;
 import com.nuhkoca.android.mvpcleancodedemo.networking.NetworkError;
 import com.nuhkoca.android.mvpcleancodedemo.networking.Service;
@@ -14,8 +14,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by nuhkoca on 23.11.2017.
  */
-
-//TODO: @PerActivity
+@ActivityScope
 public class HomePresenter extends BasePresenter<HomeView, HomeViewViewState> {
     private final Service service;
     private CompositeSubscription subscriptions;
@@ -52,6 +51,6 @@ public class HomePresenter extends BasePresenter<HomeView, HomeViewViewState> {
 
         handleViewState(viewState);
 
-        //TODO: NetworkService.getCityList returns null???? getCityList();
+        getCityList();
     }
 }

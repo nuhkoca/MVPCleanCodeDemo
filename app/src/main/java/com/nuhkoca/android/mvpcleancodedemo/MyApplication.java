@@ -21,8 +21,9 @@ public class MyApplication extends Application implements HasActivityInjector {
     public void onCreate() {
         super.onCreate();
 
-        //DaggerApplicationComponent.builder().application(this).build().inject(this);
-        DaggerAppComponent.builder().create(this).inject(this);
+        DaggerAppComponent.builder()
+                .create(this)
+                .inject(this);
     }
 
     @Override

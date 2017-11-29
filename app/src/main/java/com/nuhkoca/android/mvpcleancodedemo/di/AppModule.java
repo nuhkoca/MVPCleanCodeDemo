@@ -3,35 +3,27 @@ package com.nuhkoca.android.mvpcleancodedemo.di;
 import android.app.Application;
 import android.content.Context;
 
-import com.nuhkoca.android.mvpcleancodedemo.models.CityListResponse;
-import com.nuhkoca.android.mvpcleancodedemo.networking.NetworkService;
+import com.nuhkoca.android.mvpcleancodedemo.MyApplication;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
-import rx.Observable;
 
 /**
  * Created by Erik Duisters on 25-11-2017.
  */
 
 @Module(subcomponents = HomeActivitySubComponent.class)
-public class AppModule {
-    @Provides
+abstract class AppModule {
+    @Binds
     @Singleton
-    Context provideContext(Application application) {
-        return application.getApplicationContext();
-    }
+    abstract Application application(MyApplication myApplication);
 
     @Provides
-    //TODO: @Singleton
-    NetworkService provideNetworkService() {
-        return new NetworkService() {
-            @Override
-            public Observable<CityListResponse> getCityList() {
-                return null;
-            }
-        };
+    @Singleton
+    static Context provideContext(Application application) {
+        return application.getApplicationContext();
     }
 }

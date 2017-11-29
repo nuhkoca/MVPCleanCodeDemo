@@ -10,7 +10,8 @@ import dagger.android.AndroidInjector;
  */
 
 @Subcomponent(modules = ActivityBindingModule.class)
+@ActivityScope
 public interface HomeActivitySubComponent extends AndroidInjector<HomeActivity> {
     @Subcomponent.Builder
-    public abstract class Builder extends AndroidInjector.Builder<HomeActivity> {}
+    abstract class Builder extends AndroidInjector.Builder<HomeActivity> {}
 }

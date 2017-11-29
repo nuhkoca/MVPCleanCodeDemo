@@ -1,15 +1,19 @@
 package com.nuhkoca.android.mvpcleancodedemo.networking;
 
+import android.content.Context;
+
 import com.nuhkoca.android.mvpcleancodedemo.BuildConfig;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.*;
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -22,23 +26,18 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 @Module
 public class NetworkModule {
-    private File cacheFile;
+    @Provides
+    @Singleton
+    Cache provideHttpCache(Context context) {
+        int cacheSize = 10 * 1024 * 1024;
+        Cache cache = new Cache(context.getCacheDir(), cacheSize);
 
-    public NetworkModule(File cacheFile) {
-        this.cacheFile = cacheFile;
+        return cache;
     }
 
     @Provides
     @Singleton
-    Retrofit provideCall() {
-        Cache cache = null;
-
-        try {
-            cache = new Cache(cacheFile, 10 * 1024 * 1024);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    OkHttpClient provideOkHttpClient(Cache cache) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
@@ -60,6 +59,12 @@ public class NetworkModule {
                 .cache(cache)
                 .build();
 
+        return okHttpClient;
+    }
+
+    @Provides
+    @Singleton
+    Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASEURL)
                 .client(okHttpClient)
