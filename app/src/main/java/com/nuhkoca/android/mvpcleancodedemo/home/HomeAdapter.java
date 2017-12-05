@@ -47,9 +47,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         String images = cityListData.get(position).getBackground();
 
-        RequestOptions requestOptions = new RequestOptions();
-        requestOptions.diskCacheStrategy(DiskCacheStrategy.RESOURCE);
-        requestOptions.skipMemoryCache(true);
+        RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .skipMemoryCache(true);
 
         Glide.with(context)
                 .load(images)
